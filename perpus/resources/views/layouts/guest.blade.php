@@ -200,6 +200,85 @@
             height: auto;
         }
 
+        /* ==== Dropdown Menu Style ==== */
+        .navbar .dropdown {
+            position: relative;
+        }
+
+        .navbar .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: #ffffff;
+            border-radius: 8px;
+            min-width: 200px;
+            padding: 10px 0;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .navbar .dropdown-item {
+            padding: 10px 20px;
+            color: #000000;
+            font-weight: 500;
+            text-decoration: none;
+            display: block;
+            transition: all 0.2s ease;
+        }
+
+        .navbar .dropdown-item:hover {
+            background-color: #152d99;
+            color: #ffffff;
+        }
+
+        /* ==== Dropdown Hover Behavior ==== */
+        .navbar .dropdown-hover:hover .dropdown-menu {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Tambahan agar dropdown tetap muncul di layar kecil */
+        @media (max-width: 991px) {
+            .navbar .dropdown-menu {
+                position: static;
+                box-shadow: none;
+                opacity: 1;
+                transform: none;
+                display: none;
+            }
+
+            .navbar .dropdown.show .dropdown-menu {
+                display: block;
+            }
+
+            .navbar .dropdown-item {
+                padding-left: 30px;
+            }
+        }
+
+        /* Tambahan animasi halus */
+        @keyframes dropdownFade {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .navbar .dropdown-hover:hover .dropdown-menu {
+            animation: dropdownFade 0.3s ease forwards;
+        }
+
+
         @media (max-width: 768px) {
             .brand-logo {
                 width: 200px;
@@ -236,6 +315,15 @@
                         <li class="nav-item {{ request()->is('/') ? 'active' : '' }}"><a
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}"
                                 href="{{ url('/') }}">BERANDA</a></li>
+                        <li class="nav-item dropdown dropdown-hover">
+                            <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
+                                aria-expanded="false" class="nav-link dropdown-toggle">SIRKULASI</a>
+                            <ul aria-labelledby="dropdownSubMenu1" class="border-0 shadow dropdown-menu">
+                                <li><a href="#" class="dropdown-item">PEMINJAMAN</a></li>
+                                <li><a href="#" class="dropdown-item">PENGEMBALIAN</a></li>
+                                <li><a href="#" class="dropdown-item">PERPANJANGAN</a></li>
+                            </ul>
+                        </li>
                         <li class="nav-item {{ request()->is('/buku') ? 'active' : '' }}"><a
                                 class="nav-link {{ request()->is('/buku') ? 'active' : '' }}"
                                 href="{{ url('/buku') }}">BUKU</a></li>
@@ -289,7 +377,7 @@
                         <div>Silahkan menghubungi kami pada kontak di bawah ini :</div>
                         <div><i class="fas fa-map-marked-alt"></i> Jl. Utama Pasir Panjang, Pasir Panjang, Kec. Arut
                             Sel., Kabupaten Kotawaringin Barat, Kalimantan Tengah 74181</div>
-                        <div>Hotline : <a href="http://wa.me/6282242221330" class="text-dark" target="_blank"
+                        <div>Hotline : <a href="telp:05322031711" class="text-dark" target="_blank"
                                 style="text-decoration: none"><i class="fas fa-phone"></i> 05322031711</a>
                         </div>
                         <div>Jumlah Pengunjung Hari Ini : <b>{{ $dayCount }}</b></div>
