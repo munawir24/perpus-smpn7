@@ -197,6 +197,25 @@
         .custom-carousel-indicators .active {
             background-color: #00ddff;
         }
+
+        .responsive-width {
+            width: 10%;
+            /* default: tampilan PC */
+        }
+
+        /* Tablet (max lebar 992px) */
+        @media (max-width: 992px) {
+            .responsive-width {
+                width: 12%;
+            }
+        }
+
+        /* HP (max lebar 768px) */
+        @media (max-width: 768px) {
+            .responsive-width {
+                width: 15%;
+            }
+        }
     </style>
 @endsection
 
@@ -285,11 +304,11 @@
                 </div>
                 <div class="mt-2 card" style="background: #f8fdffa7">
                     <div class="mt-2 mb-2 row justify-content-center">
-                        <img src="{{ asset('img/sekolah_ramah.png') }}" alt="" class="col-2" style="width: 10%">
-                        <img src="{{ asset('img/sekolah_sehat.png') }}" alt=""class="col-2" style="width: 10%">
-                        <img src="{{ asset('img/logo smp.png') }}" alt="LOGO SMP"class="col-2" style="width: 10%">
-                        <img src="{{ asset('img/adiwiyata.png') }}" alt=""class="col-2" style="width: 10%">
-                        <img src="{{ asset('img/narkoba.png') }}" alt=""class="col-2" style="width: 10%">
+                        <img src="{{ asset('img/sekolah_ramah.png') }}" alt="" class="col-2 responsive-width">
+                        <img src="{{ asset('img/sekolah_sehat.png') }}" alt=""class="col-2 responsive-width">
+                        <img src="{{ asset('img/logo smp.png') }}" alt="LOGO SMP"class="col-2 responsive-width">
+                        <img src="{{ asset('img/adiwiyata.png') }}" alt=""class="col-2 responsive-width">
+                        <img src="{{ asset('img/narkoba.png') }}" alt=""class="col-2 responsive-width">
                     </div>
                 </div>
                 <div class="mt-2 card" style="background: #f8fdffa7">

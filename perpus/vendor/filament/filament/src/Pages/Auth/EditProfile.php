@@ -235,7 +235,7 @@ class EditProfile extends Page
         return TextInput::make('email')
             ->label(__('filament-panels::pages/auth/edit-profile.form.email.label'))
             ->email()
-            ->required()
+            // ->required()
             ->maxLength(255)
             ->unique(ignoreRecord: true);
     }
@@ -280,7 +280,7 @@ class EditProfile extends Page
                 $this->makeForm()
                     ->schema([
                         $this->getNameFormComponent(),
-                        $this->getEmailFormComponent(),
+                        // $this->getEmailFormComponent(),
                         $this->getPasswordFormComponent(),
                         $this->getPasswordConfirmationFormComponent(),
                     ])
