@@ -59,9 +59,9 @@ class UserResource extends Resource
                         ->minLength(8)
                         ->dehydrated(false),
                     Forms\Components\Select::make('roles')
-                        ->multiple()
                         ->relationship('roles', 'name')
                         ->preload()
+                        ->required()
                 ])
             ]);
     }
