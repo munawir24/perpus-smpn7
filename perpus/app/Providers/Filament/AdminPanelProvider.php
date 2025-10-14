@@ -6,6 +6,7 @@ use Filament\Pages;
 use Filament\Panel;
 use Filament\Widgets;
 use Filament\PanelProvider;
+use Filament\Navigation\MenuItem;
 use Filament\Support\Colors\Color;
 use Filament\Pages\Auth\EditProfile;
 use App\Filament\Pages\Auth\LoginCustom;
@@ -76,6 +77,12 @@ class AdminPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
-            ->profile(EditProfile::class);;
+            ->profile(EditProfile::class)
+            ->userMenuItems([
+                'profile' => MenuItem::make()
+                    ->label(fn() => auth()->user()->name)
+                    ->icon('heroicon-s-user-circle')
+                    ->url(fn() => EditProfile::getUrl()),
+            ]);
     }
 }
