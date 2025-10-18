@@ -377,7 +377,7 @@
                         <div>Silahkan menghubungi kami pada kontak di bawah ini :</div>
                         <div><i class="fas fa-map-marked-alt"></i> Jl. Utama Pasir Panjang, Pasir Panjang, Kec. Arut
                             Sel., Kabupaten Kotawaringin Barat, Kalimantan Tengah 74181</div>
-                        <div>Hotline : <a href="telp:05322031711" class="text-dark" target="_blank"
+                        <div>Hotline : <a href="tel:05322031711" class="text-dark" target="_blank"
                                 style="text-decoration: none"><i class="fas fa-phone"></i> 05322031711</a>
                         </div>
                         <div>Jumlah Pengunjung Hari Ini : <b>{{ $dayCount }}</b></div>
