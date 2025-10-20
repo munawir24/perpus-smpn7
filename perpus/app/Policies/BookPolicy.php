@@ -13,7 +13,7 @@ class BookPolicy
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('admin');
+        return $user->hasRole(['admin', 'guru']);
     }
 
     /**
@@ -21,7 +21,7 @@ class BookPolicy
      */
     public function view(User $user, User $model): bool
     {
-        return $user->hasRole('admin');
+        return $user->hasRole(['admin', 'guru']);
     }
 
     /**
@@ -29,7 +29,7 @@ class BookPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasRole('admin');
+        return $user->hasRole(['admin', 'guru']);
     }
 
     /**

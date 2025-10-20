@@ -11,6 +11,7 @@ use Actions\DeleteAction;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
+use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\ImageColumn;
@@ -85,8 +86,8 @@ class EbookResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('jumlah_view')
                     ->sortable(),
-                Tables\Columns\ToggleColumn::make('is_publish')->label('Publish'),
-                Tables\Columns\ToggleColumn::make('is_popular')->label('Populer'),
+                Tables\Columns\ToggleColumn::make('is_publish')->label('Publish')->visible(fn () => Auth::user()->hasRole('admin')),
+                Tables\Columns\ToggleColumn::make('is_popular')->label('Populer')->visible(fn () => Auth::user()->hasRole('admin')),
             ])
             ->filters([
                 //
