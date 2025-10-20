@@ -35,13 +35,38 @@
                         </div>
                         <div class="col-md-9 col-sm-8 col-12">
                             {{-- <object data="{{ asset('perpus/smpn7/' . $book->lampiran) }}" width="100%"></object> --}}
-                            @if ($book->lampiran == null)
+                            {{-- @if ($book->lampiran == null)
                                 <iframe src="{{ $book->link }}"
                                     style="width: 100%; height:80vh; border-radius: 5px;"></iframe>
                             @else
                                 <iframe src="{{ asset('perpus/smpn7/' . $book->lampiran) }}"
                                     style="width: 100%; height:80vh; border-radius: 5px;"></iframe>
-                            @endif
+                            @endif --}}
+                            {{-- Versi tampilan besar (PC/tablet) → tampil iframe --}}
+                            <div class="d-none d-md-block">
+                                @if ($book->lampiran == null)
+                                    <iframe src="{{ $book->link }}"
+                                        style="width: 100%; height:80vh; border-radius: 5px;"></iframe>
+                                @else
+                                    <iframe src="{{ asset('perpus/smpn7/' . $book->lampiran) }}"
+                                        style="width: 100%; height:80vh; border-radius: 5px;"></iframe>
+                                @endif
+                            </div>
+
+                            {{-- Versi HP (col-12) → tampil tombol buka buku --}}
+                            <div class="mt-3 text-center d-block d-md-none">
+                                @if ($book->lampiran == null)
+                                    <a href="{{ $book->link }}" target="_blank" class="btn btn-primary">
+                                        📖 Baca Buku
+                                    </a>
+                                @else
+                                    <a href="{{ asset('perpus/smpn7/' . $book->lampiran) }}" target="_blank"
+                                        class="btn btn-primary">
+                                        📖 Baca Buku
+                                    </a>
+                                @endif
+                            </div>
+
                         </div>
                     </div>
                 </div>
