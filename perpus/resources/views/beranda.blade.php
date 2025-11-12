@@ -19,19 +19,24 @@
             /* gap: 5px; */
         }
 
-        .tumbnail-img {
+        /* .tumbnail-img {
             width: 15vw;
             height: 15vw;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             margin: 5px;
+        } */
+
+        .tumbnail video .tumbnail img {
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
         }
 
-        .thumbnail-img img {
+        /* .thumbnail-img img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
+        } */
 
         .slogan {
             width: 50vw;
@@ -63,14 +68,13 @@
             border-radius: 10px;
         }
 
-        video {
+        /* video {
             width: 100%;
-            /* height: 400px; */
             border: none;
             border-radius: 10px;
-        }
+        } */
 
-        @media (max-width: 1024px) {
+        /* @media (max-width: 1024px) {
             .tumbnail-img {
                 width: 30vw;
                 height: 30vw;
@@ -79,10 +83,6 @@
             .thumbnail-img img {
                 width: 100%;
                 aspect-ratio: 1/1;
-                /* height: 100%; */
-                /* height: 50vh; */
-                /* Sesuaikan tinggi */
-                /* object-fit: cover; */
                 object-fit: contain;
                 border-radius: 10px;
             }
@@ -97,10 +97,6 @@
             .thumbnail-img img {
                 width: 100%;
                 aspect-ratio: 1/1;
-                /* height: 100%; */
-                /* height: 50vh; */
-                /* Sesuaikan tinggi */
-                /* object-fit: cover; */
                 object-fit: contain;
                 border-radius: 10px;
             }
@@ -112,7 +108,7 @@
             .direktur {
                 width: 15vw;
             }
-        }
+        } */
     </style>
     <style>
         /* Carousel container */
@@ -316,9 +312,36 @@
                         <center>
                             <h2>Galeri SMPN 7 Arut Selatan</h2>
                         </center>
-                        <div class="tumbnail justify-content-center">
+                        {{-- <div class="tumbnail justify-content-center">
                             @foreach ($galery as $im)
-                                <img src="{{ asset('perpus/smpn7/' . $im->file) }}" alt="galery" class="tumbnail-img">
+                                @if ($im->tipe === 'img')
+                                    <img src="{{ asset('perpus/smpn7/' . $im->file) }}" alt="galery"
+                                        class="tumbnail-img">
+                                @elseif($im->tipe === 'video')
+                                    <video controls style="height: 300px; object-fit: cover">
+                                        <source src="{{ asset('perpus/smpn7/' . $im->file) }}" type="video/mp4">
+                                        Browser kamu tidak mendukung video tag.
+                                    </video>
+                                @endif
+                            @endforeach
+                        </div> --}}
+                        <div class="row justify-content-center">
+                            @foreach ($galery as $im)
+                                @if ($im->tipe === 'img')
+                                    <div class="mb-3 col-md-3 col-6 d-flex justify-content-center">
+                                        <img src="{{ asset('perpus/smpn7/' . $im->file) }}" alt="galery"
+                                            class="rounded shadow-sm img-fluid"
+                                            style="max-height: 300px; object-fit: cover;">
+                                    </div>
+                                @elseif($im->tipe === 'video')
+                                    <div class="mb-3 col-md-6 col-12 d-flex justify-content-center">
+                                        <video controls class="rounded shadow-sm w-100"
+                                            style="width: 100%; height: auto; max-height: 300px; object-fit: contain;">
+                                            <source src="{{ asset('perpus/smpn7/' . $im->file) }}" type="video/mp4">
+                                            Browser kamu tidak mendukung video tag.
+                                        </video>
+                                    </div>
+                                @endif
                             @endforeach
                         </div>
                     </div>

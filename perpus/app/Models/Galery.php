@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Galery extends Model
 {
     use HasFactory;
-    protected $fillable = ['file', 'status','pin'];
+    protected $fillable = ['file', 'status','pin','tipe'];
 }

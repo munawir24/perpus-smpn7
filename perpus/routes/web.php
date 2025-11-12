@@ -7,6 +7,7 @@ use App\Models\Galery;
 use App\Models\Landing;
 use App\Models\Visitor;
 use App\Models\Sertifikat;
+use App\Models\CategoryBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookController;
@@ -36,7 +37,7 @@ Route::get('/', function (Request $request) {
     $sertifikat = Sertifikat::where('status', 1)->get();
     $book = Book::where('is_publish', 1)->where('is_popular', 1)->get();
     $landing = Landing::where('status', 1)->get();
-    $galery = Galery::where('status', 1)->where('pin', 1)->get();
+    $galery = Galery::where('status', 1)->where('pin', 1)->orderBy('updated_at', 'DESC')->get();
 
     return view('beranda', compact('landing', 'galery', 'sertifikat', 'book'));
 });
@@ -47,22 +48,36 @@ Route::get('/buku', function (Request $request) {
         Visitor::create(['ip_address' => $ip]);
     }
 
-    $query = $request->get('search');
+    $query = $request->search;
+    $category = $request->category;
 
-    $book = Book::when($query, function ($q) use ($query) {
-        $q->where('judul', 'like', "%{$query}%");
-    })->get();
+    $book = Book::query()
+        ->when($query, fn($q) => $q->where('judul', 'like', "%{$query}%"))
+        ->when($category, fn($q) => $q->where('category_id', $category))
+        ->with('category')
+        ->get();
+    $categories = CategoryBook::all();
 
-    return view('buku', compact('book'))->render();
+    return view('buku', compact('book', 'query', 'categories'))->render();
 });
 Route::get('/list-buku', function (Request $request) {
-    $query = $request->get('search');
+    // $query = $request->get('search');
 
-    $book = Book::when($query, function ($q) use ($query) {
-        $q->where('judul', 'like', "%{$query}%");
-    })->get();
+    // $book = Book::when($query, function ($q) use ($query) {
+    //     $q->where('judul', 'like', "%{$query}%");
+    // })->get();
+    $query = $request->search;
+    $category = $request->category;
 
-    return view('list-buku', compact('book'))->render();
+    $book = Book::query()
+        ->when($query, fn($q) => $q->where('judul', 'like', "%{$query}%"))
+        ->when($category, fn($q) => $q->where('category_id', $category))
+        ->with('category')
+        ->get();
+    $categories = CategoryBook::all();
+
+
+    return view('list-buku', compact('book', 'query', 'categories'))->render();
 });
 Route::get('/baca-buku/{id}', [BookController::class, 'show'])->name('baca-buku');
 // Route::get('/profile', function (Request $request) {

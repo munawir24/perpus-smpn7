@@ -9,9 +9,11 @@ use Filament\Tables;
 use Filament\Forms\Form;
 use Actions\DeleteAction;
 use Filament\Tables\Table;
+use App\Models\CategoryBook;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
 use Illuminate\Support\Facades\Auth;
+use Filament\Forms\Components\Select;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Columns\ImageColumn;
@@ -28,12 +30,33 @@ class EbookResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-book-open';
 
     protected static ?string $navigationGroup = 'Buku';
+    public static function getNavigationLabel(): string
+    {
+        return 'Buku';
+    }
+
+    // (opsional) Ubah label tunggal dan jamak untuk form & tabel
+    public static function getLabel(): ?string
+    {
+        return 'Buku';
+    }
+
+    public static function getPluralLabel(): ?string
+    {
+        return 'Buku';
+    }
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Card::make()->schema([
+                    // Select::make('category_id')->relationship('category', 'name')
+                    // ->searchable(),
+                    Select::make('category_id')
+                        ->label('Kategori')
+                        ->options(CategoryBook::query()->pluck('name', 'id'))
+                        ->searchable(),
                     Forms\Components\FileUpload::make('cover')
                         ->image()
                         ->imageEditor(),
@@ -57,7 +80,12 @@ class EbookResource extends Resource
                         ->numeric()
                         ->required()
                         ->maxLength(255),
-                    Forms\Components\FileUpload::make('lampiran'),
+                    Forms\Components\FileUpload::make('lampiran')
+                        ->acceptedFileTypes([
+                            'application/pdf', // tipe file yang diizinkan
+                        ])
+                        ->downloadable() // menambahkan tombol download di form
+                        ->openable(), // menambahkan tombol open (preview di tab baru),
                     Forms\Components\TextInput::make('link')
                         ->maxLength(255),
                     Forms\Components\Toggle::make('is_publish')
@@ -84,10 +112,11 @@ class EbookResource extends Resource
                 Tables\Columns\TextColumn::make('judul')
                     ->searchable()
                     ->sortable(),
+                Tables\Columns\TextColumn::make('category.name')->limit(50)->searchable()->sortable()->label('Kategori'),
                 Tables\Columns\TextColumn::make('jumlah_view')
                     ->sortable(),
-                Tables\Columns\ToggleColumn::make('is_publish')->label('Publish')->visible(fn () => Auth::user()->hasRole('admin')),
-                Tables\Columns\ToggleColumn::make('is_popular')->label('Populer')->visible(fn () => Auth::user()->hasRole('admin')),
+                Tables\Columns\ToggleColumn::make('is_publish')->label('Publish')->visible(fn() => Auth::user()->hasRole('admin')),
+                Tables\Columns\ToggleColumn::make('is_popular')->label('Populer')->visible(fn() => Auth::user()->hasRole('admin')),
             ])
             ->filters([
                 //

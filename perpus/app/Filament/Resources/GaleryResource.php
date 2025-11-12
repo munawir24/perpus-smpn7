@@ -8,8 +8,10 @@ use Filament\Tables;
 use App\Models\Galery;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
+use App\Tables\Columns\VideoColumn;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Radio;
 use Filament\Tables\Contracts\HasTable;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\GaleryResource\Pages;
@@ -30,9 +32,13 @@ class GaleryResource extends Resource
         return $form
             ->schema([
                 Card::make()->schema([
+                    Radio::make('tipe')
+                        ->options([
+                            'img' => 'Foto',
+                            'video' => 'Video'
+                        ]),
                     Forms\Components\FileUpload::make('file')
-                        ->required()
-                        ->image(),
+                        ->required(),
                     Forms\Components\Toggle::make('status')
                         ->required(),
                 ])
@@ -53,7 +59,9 @@ class GaleryResource extends Resource
                         );
                     }
                 ),
-                Tables\Columns\ImageColumn::make('file'),
+                // Tables\Columns\ImageColumn::make('file'),
+                VideoColumn::make('file')->label('Preview'),
+                Tables\Columns\TextColumn::make('tipe')->label('Tipe'),
                 Tables\Columns\ToggleColumn::make('status')->label('Publish'),
                 Tables\Columns\ToggleColumn::make('pin')->label('Sematkan'),
             ])

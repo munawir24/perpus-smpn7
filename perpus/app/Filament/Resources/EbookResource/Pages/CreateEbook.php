@@ -9,7 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateEbook extends CreateRecord
 {
     protected static string $resource = EbookResource::class;
-        protected function getRedirectUrl(): string
+    protected function getRedirectUrl(): string
     {
         return $this->getResource()::getUrl('index');
     }

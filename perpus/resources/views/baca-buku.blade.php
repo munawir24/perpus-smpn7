@@ -32,6 +32,11 @@
                                 <div class="col-5">Jlh. Halaman</div>
                                 <div class="col-7">: {{ Str::title($book->jumlah_halaman) }} hlm.</div>
                             </div>
+                            <div class="mt-1 row">
+                                <div class="col-5">Kategori</div>
+                                <div class="col-7">:
+                                    {{ $book->category_id == null ? '-' : Str::title($book->category->name) }}</div>
+                            </div>
                         </div>
                         <div class="col-md-9 col-sm-8 col-12">
                             {{-- <object data="{{ asset('perpus/smpn7/' . $book->lampiran) }}" width="100%"></object> --}}
