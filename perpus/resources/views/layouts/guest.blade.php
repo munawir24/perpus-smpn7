@@ -315,7 +315,7 @@
                         <li class="nav-item {{ request()->is('/') ? 'active' : '' }}"><a
                                 class="nav-link {{ request()->is('/') ? 'active' : '' }}"
                                 href="{{ url('/') }}">BERANDA</a></li>
-                        <li class="nav-item dropdown dropdown-hover">
+                        {{-- <li class="nav-item dropdown dropdown-hover">
                             <a id="dropdownSubMenu1" href="#" data-toggle="dropdown" aria-haspopup="true"
                                 aria-expanded="false" class="nav-link dropdown-toggle">SIRKULASI</a>
                             <ul aria-labelledby="dropdownSubMenu1" class="border-0 shadow dropdown-menu">
@@ -323,9 +323,9 @@
                                 <li><a href="#" class="dropdown-item">PENGEMBALIAN</a></li>
                                 <li><a href="#" class="dropdown-item">PERPANJANGAN</a></li>
                             </ul>
-                        </li>
-                        <li class="nav-item {{ request()->is('/buku') ? 'active' : '' }}"><a
-                                class="nav-link {{ request()->is('/buku') ? 'active' : '' }}"
+                        </li> --}}
+                        <li class="nav-item {{ request()->is('buku', 'list-buku') ? 'active' : '' }}"><a
+                                class="nav-link {{ request()->is('buku', 'list-buku') ? 'active' : '' }}"
                                 href="{{ url('/buku') }}">BUKU</a></li>
                         <li class="nav-item"><a class="nav-link" target="_blank"
                                 href="https://buku.kemendikdasmen.go.id/katalog">PERPUSTAKAAN KEMENDIKDASMEN</a></li>
