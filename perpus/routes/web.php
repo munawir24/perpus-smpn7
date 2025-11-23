@@ -54,6 +54,7 @@ Route::get('/buku', function (Request $request) {
     $book = Book::query()
         ->when($query, fn($q) => $q->where('judul', 'like', "%{$query}%"))
         ->when($category, fn($q) => $q->where('category_id', $category))
+        ->where('is_publish', 1)
         ->with('category')
         ->get();
     $categories = CategoryBook::all();
@@ -72,6 +73,7 @@ Route::get('/list-buku', function (Request $request) {
     $book = Book::query()
         ->when($query, fn($q) => $q->where('judul', 'like', "%{$query}%"))
         ->when($category, fn($q) => $q->where('category_id', $category))
+        ->where('is_publish', 1)
         ->with('category')
         ->get();
     $categories = CategoryBook::all();
