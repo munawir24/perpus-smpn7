@@ -9,8 +9,8 @@ use Illuminate\Database\Eloquent\Model;
 class Book extends Model
 {
     use HasFactory, HasUlids;
-    protected $fillable = ['judul', 'penulis', 'penerbit', 'tahun_terbit', 'kota_terbit', 'isbn', 'lampiran', 'link', 'is_popular', 'is_publish', 'jumlah_halaman', 'jumlah_view','cover','category_id'];
-public function category()
+    protected $fillable = ['judul', 'penulis', 'penerbit', 'tahun_terbit', 'kota_terbit', 'isbn', 'lampiran', 'link', 'is_popular', 'is_publish', 'jumlah_halaman', 'jumlah_view', 'cover', 'category_id'];
+    public function category()
     {
         return $this->belongsTo(CategoryBook::class);
     }
